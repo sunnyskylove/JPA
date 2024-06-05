@@ -3,16 +3,20 @@ package com.ohgiraffers.section02.crud;
 import jakarta.persistence.*;
 
 @Entity(name = "section02Menu")
-@Table(name = "tbl_menu")       // 데이터베이스 안에 있는 테이블 필드들이 컬럼으로 하나씩 들어가게 된다.
+@Table(name = "tbl_menu")
+// 데이터베이스 안에 있는 테이블 필드들이 컬럼으로 하나씩 들어가게 된다.
+
 public class Menu {
 
     // pk -> not nul, unique (기본 조건)-> auto increment (우리가 지정한것)
-    @Id //  not nul, unique 만 가지고 있다. (밑에 열쇠 띠용~생긴다!)
-    @GeneratedValue(strategy = GenerateType.IDENTITY)
-    /* 필기. strategy 속성
-    *   - AUTO : 우리가 사용하는 DB 에 따른다.
-    *   - IDENTITY / SEQUENCE : mysql auto_increment 사용 / oracle sequence 사용 (둘다 auto increment 와 같다..?)
-    * */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /* 필기. strategy 속
+     *   - AUTO : 우리가 사용하는 DB 에 따른다.
+     *   - IDENTITY / SEQUENCE : mysql auto_increment 사용 / oracle sequence 사용 (둘다 auto increment 와 같다..?)
+     * */
+
+
     @Column(name = "menu_code")
     private int menuCode;
 
@@ -31,7 +35,7 @@ public class Menu {
     // 같은 패키지 내에 있는 녀석들만 사용 가능 할 수 있다.
     protected Menu() {}
 
-    public Menu(int menuCode, String menuName, int menuPrice, int categoryCode, String orderableStatus) {
+    public Menu(String menuName, int menuPrice, int categoryCode, String orderableStatus) {
         this.menuCode = menuCode;
         this.menuName = menuName;
         this.menuPrice = menuPrice;
@@ -40,7 +44,7 @@ public class Menu {
     }
 
     public int getMenuCode() {
-        return menuCode;
+        return this.menuCode;
     }
 
     public void setMenuCode(int menuCode) {
@@ -89,4 +93,8 @@ public class Menu {
                 ", orderableStatus='" + orderableStatus + '\'' +
                 '}';
     }
+
+
+
+
 }
