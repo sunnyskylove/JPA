@@ -19,7 +19,7 @@ public class EntityManagerCRUD {
 
         manager = EntityManagerGenerator.getManagerInstance();
 
-        return manager.find(Menu.class, menuCode);          // 우리가 sql문 짜는게 아니라 manager가 대신 짜줄 것임!, ()안에 있는 정보를 사용하면서 값 전달하기~ => 찾을건데 (Menu.class를 기반으로, menuCode를 전달할거야.)
+        return manager.find(Menu.class, menuCode);    // 우리가 sql문 짜는게 아니라 manager가 대신 짜줄 것임!, ()안에 있는 정보를 사용하면서 값 전달하기~ => 찾을건데 (Menu.class를 기반으로, menuCode를 전달할거야.)
 
     }
 
