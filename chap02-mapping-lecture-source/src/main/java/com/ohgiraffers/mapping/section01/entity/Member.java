@@ -12,14 +12,17 @@ import java.time.LocalDateTime;
 *   - 저장할 필드에 final 을 사용하면 안된다.
 * */
 @Entity(name = "entityMember")
-@Table(name = "tbl_member")
+@Table(name = "tbl_member", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"member_id","phone"})
+})
 public class Member {
 
     /* 필기.
     *   @Column 속성
     *   - name : 매핑할 테이블의 컬럼 이름
     *   - nullable : null 값 허용여부 설정 = not null 제약조건에 해당한다. 원래 default(true)값은 null 값을 허용함.
-    *   - unique : 컬럼의 유일성 제약 조건
+    *   - unique : 컬럼의 유일성 제약 조건, 두 개 이상의 컬럼에 unique 제약 조건을 설정하기 위해서는
+    *              @Table 어노테이션 속성에 uniqueConstrains 속성을 추가해야 한다.
     *   - columnDefinition : 직접 컬럼의 DDL 을 지정할 수 있다.
     *   - length : 문자열의 길이 = String 타입에서만 사용 (default : 255)
     * */
@@ -40,7 +43,7 @@ public class Member {
     @Column(name = "member_name")
     private String memberName;
 
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true)
     private String phone;
 
     @Column(name = "address", length = 900)

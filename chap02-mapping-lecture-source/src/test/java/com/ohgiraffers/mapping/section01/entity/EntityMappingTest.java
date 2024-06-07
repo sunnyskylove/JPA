@@ -69,4 +69,31 @@ public class EntityMappingTest {
 
     }
 
+    @DisplayName("프로퍼티 접근 테스트")
+    @ParameterizedTest
+    @MethodSource("getMember")
+    void testAccessProperty(int memberNo, String memberId, String memberPwd,
+                         String memberName, String phone, String address,
+                         LocalDateTime enrollDate, MemberRole memberRole, String status) {
+
+        // given
+        MemberRegistDTO newMember = new MemberRegistDTO(
+                memberId,
+                memberPwd,
+                memberName,
+                phone,
+                address,
+                enrollDate,
+                memberRole,
+                status
+        );
+
+    // when
+        String registName = memberRegistService.registMemberAndFindName(newMember);
+
+    // then
+    Assertions.assertEquals(memberName, registName);
+
+    }
+
 }
