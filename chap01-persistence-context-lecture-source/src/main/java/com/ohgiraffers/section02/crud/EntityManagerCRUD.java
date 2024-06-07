@@ -55,4 +55,19 @@ public class EntityManagerCRUD {
 
         return foundMenu;          // 자신을 호출한 곳으로 다시 리턴해줄 것임!
     }
+
+    public Long removeAndReturnAllCount(int menuCode) {
+
+        Menu foundMenu = findMenubyMenuCode(menuCode);
+
+        EntityTransaction transaction = manager.getTransaction();
+        transaction.begin();
+
+        manager.remove(foundMenu);
+        manager.flush();
+
+        return getCount(manager);
+
+
+    }
 }
