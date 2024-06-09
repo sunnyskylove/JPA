@@ -17,7 +17,7 @@ public class MemberRegistService {
     @Transactional          // 조회가 아니기 떄문에 데이터베이스에 변경이 일어남 따라서 Transactional 추가해줌!
     public void registMember(MemberRegistDTO newMember) {
 
-        // ============= 만약 정보 더 추가하려면 여기에 로직 만들어주게 된다. ============
+        // =================== 만약 정보 더 추가하려면 여기에 로직 만들어주게 된다. ==============
 
         Member member = new Member(
                 newMember.getMemberId(),
