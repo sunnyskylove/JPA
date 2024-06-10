@@ -16,6 +16,10 @@ public class Menu {
     @Column(name = "menu_price")
     private int menuPrice;
 
+    /* 중요!! 영속성 전이
+    *       특정 엔티티를 영속화(등록) 할 떄, 연관 된 엔티티도 함께 영속화 한다는 의미이다.
+    *       즉, -> menu 엔티티를 영속화 할때, Category 엔티티도 같이 영속화 시킨다.
+    *  */
     @ManyToOne
     @JoinColumn(name = "category_code")     // 참고. *JoinColumn: category_code와 조인하고 있다고 설정하기_FK와 비슷한 역활(해당 연결된 카테고리를 알고 있다는 것!/전정보)
     private Category category;

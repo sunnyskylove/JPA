@@ -7,14 +7,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CartRepository {
 
-
     @PersistenceContext
     private EntityManager manager;
 
     public void save(Cart cart) {
 
         manager.persist(cart);
-
 
     }
 }

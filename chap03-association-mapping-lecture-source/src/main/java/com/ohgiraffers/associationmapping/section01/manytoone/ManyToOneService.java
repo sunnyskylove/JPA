@@ -1,7 +1,10 @@
 package com.ohgiraffers.associationmapping.section01.manytoone;
 
 import jakarta.persistence.ManyToOne;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.awt.*;
 
 @Service
 public class ManyToOneService {
@@ -11,6 +14,35 @@ public class ManyToOneService {
 
     public ManyToOneService(ManyToOneRepository manyToOneRepository) {
         this.manyToOneRepository = manyToOneRepository;
+    }
+
+    public Menu findMenu(int menuCode) {
+
+        return manyToOneRepository.find(menuCode);
+
+    }
+
+    public String findCategoryNameByJpql(int menuCode) {
+
+        return manyToOneRepository.findCategoryName(menuCode);
+    }
+
+    @Transactional
+    public void registMenu(MenuDTO menu) {
+        Menu newMenu = new Menu(
+                menu.getMenuCode(),
+                menu.getMenuName(),
+                menu.getMenuPrice(),
+                new Category(
+                        menu.getCategoryDTO().getCategoryCode(),
+                        menu.getCategoryDTO().getCategoryName(),
+                        menu.getCategoryDTO().getRefCategoryCode()
+                ),
+                menu.getOrderableStatus()
+        );
+
+        manyToOneRepository.regist(newMenu);
+
     }
 
 }
