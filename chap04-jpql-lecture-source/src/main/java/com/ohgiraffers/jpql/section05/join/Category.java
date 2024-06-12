@@ -12,18 +12,18 @@ public class Category {
     @Column(name = "category_code")
     private int categoryCode;
 
-    @Column(name = " category_name")
+    @Column(name = "category_name")
     private String categoryName;
 
     @Column(name = "ref_category_code")
-    private int refCategoryCode;
+    private Integer refCategoryCode;
 
     @OneToMany(mappedBy = "category")
     private List<Menu> menuList;
 
     protected Category() {}
 
-    public Category(int categoryCode, String categoryName, int refCategoryCode, List<Menu> menuList) {
+    public Category(int categoryCode, String categoryName, Integer refCategoryCode, List<Menu> menuList) {
         this.categoryCode = categoryCode;
         this.categoryName = categoryName;
         this.refCategoryCode = refCategoryCode;
@@ -38,7 +38,7 @@ public class Category {
         return categoryName;
     }
 
-    public int getRefCategoryCode() {
+    public Integer getRefCategoryCode() {
         return refCategoryCode;
     }
 
@@ -56,5 +56,3 @@ public class Category {
                 '}';
     }
 }
-
-

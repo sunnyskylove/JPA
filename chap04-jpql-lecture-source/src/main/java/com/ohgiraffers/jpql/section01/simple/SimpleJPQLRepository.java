@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class SimpleJPQLRepository {
- 
+
     @Autowired
     private EntityManager manager;
 

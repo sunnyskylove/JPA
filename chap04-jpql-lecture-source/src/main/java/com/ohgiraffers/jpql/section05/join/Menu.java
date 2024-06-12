@@ -1,17 +1,16 @@
 package com.ohgiraffers.jpql.section05.join;
 
 import jakarta.persistence.*;
-import jdk.jfr.Category;
 
-@Entity(name= "section05Menu")
+@Entity(name = "section05Menu")
 @Table(name = "tbl_menu")
 public class Menu {
 
     @Id
-    @Column(name = " menu_code")
+    @Column(name = "menu_code")
     private int menuCode;
 
-    @Column(name= "menu_name")
+    @Column(name = "menu_name")
     private String menuName;
 
     @Column(name = "menu_price")
@@ -19,10 +18,9 @@ public class Menu {
 
     @ManyToOne
     @JoinColumn(name = "category_code")
-    private Category category;          // FK 주인
+    private Category category;                  // FK 주인
 
-
-    @Column(name="orderable_status")
+    @Column(name = "orderable_status")
     private String orderableStatus;
 
     protected Menu() {}
@@ -65,5 +63,4 @@ public class Menu {
                 ", orderableStatus='" + orderableStatus + '\'' +
                 '}';
     }
-
 }
