@@ -78,5 +78,93 @@ public class NativeQueryTests {
 
     }
 
+    /* 3. 결과 매핑을 사용하는 경우 -자동, -수동 */
+    @DisplayName("자동 결과 매핑을 사용한 Native Query 조회 테스트")
+    @Test
+    @Transactional
+    void testAutoMapping() {
+
+        /* 상황 : category 를 기준으로 카테고리 별 메뉴의 개수를 조회하고 싶다. */
+        // COALESCE 함수 : 여러 개의 인수(컬럼)를 전달할 수 있으며  Left Join 으로 인해 null 이 발생 할 수 있기 때문에 0을 넣어주겠다.
+        String query = "SELECT a.category_code, a.category_name, a.ref_category_code, COALESCE(v.menu_count, 0) menu_count" +
+                " FROM tbl_category a" +
+                " LEFT JOIN (SELECT COUNT(*) AS menu_count, b.category_code" +
+                " FROM tbl_menu b" +
+                " GROUP BY b.category_code) v ON (a.category_code = v.category_code)" +
+                " ORDER BY 1";
+        // order by 1 -> 첫 번째 컬럼을 기준으로 내림차순 정렬
+
+        /* 필기.
+            자동 매핑을 사용하는 이유 ? -> Object 로 값을 받는다. 하지만 우리가 값을 조작하거나 다시 데이터와 맞출 때
+            Object 타입에서 우리가 원하는 대로 형변환을 해줘야 한다.
+            이는 entity 필드도 고려, 데이터베이스의 자료형도 고려해야 하는 작업이기 때문에 번거롭다.
+        */
+        Query nativeQuery = manager.createNativeQuery(query, "categoryAutoMapping");
+        List<Object[]> categoryList = nativeQuery.getResultList();
+
+        Assertions.assertNotNull(categoryList);
+        Assertions.assertTrue(manager.contains(categoryList.get(0)[0]));
+
+        System.out.println("categoryList.get(0)[0] : " + categoryList.get(0)[0]);
+        System.out.println("categoryList.get(0)[1] : " + categoryList.get(0)[1]);
+
+        System.out.println("categoryList.get(0)[0] : " + categoryList.get(0)[0].getClass());
+        System.out.println("categoryList.get(0)[0] : " + categoryList.get(0)[1].getClass());
+
+        categoryList.forEach(
+                row -> {
+                    for(Object col : row) {
+                        System.out.print(col + " / ");
+                    }
+                    System.out.println();
+                }
+        );
+
+    }
+
+    /* 3. 결과 매핑을 사용하는 경우 -자동, -수동 */
+    @DisplayName("수동 결과 매핑을 사용한 Native Query 조회 테스트")
+    @Test
+    @Transactional
+    void testManualMapping() {
+
+        /* 상황 : category 를 기준으로 카테고리 별 메뉴의 개수를 조회하고 싶다. */
+        // COALESCE 함수 : 여러 개의 인수(컬럼)를 전달할 수 있으며  Left Join 으로 인해 null 이 발생 할 수 있기 때문에 0을 넣어주겠다.
+        String query = "SELECT a.category_code, a.category_name, a.ref_category_code, COALESCE(v.menu_count, 0) menu_count" +
+                " FROM tbl_category a" +
+                " LEFT JOIN (SELECT COUNT(*) AS menu_count, b.category_code" +
+                " FROM tbl_menu b" +
+                " GROUP BY b.category_code) v ON (a.category_code = v.category_code)" +
+                " ORDER BY 1";
+        // order by 1 -> 첫 번째 컬럼을 기준으로 내림차순 정렬
+
+        /* 필기.
+            자동 매핑을 사용하는 이유 ? -> Object 로 값을 받는다. 하지만 우리가 값을 조작하거나 다시 데이터와 맞출 때
+            Object 타입에서 우리가 원하는 대로 형변환을 해줘야 한다.
+            이는 entity 필드도 고려, 데이터베이스의 자료형도 고려해야 하는 작업이기 때문에 번거롭다.
+        */
+        Query nativeQuery = manager.createNativeQuery(query, "categoryManualMapping");
+        List<Object[]> categoryList = nativeQuery.getResultList();
+
+        Assertions.assertNotNull(categoryList);
+        Assertions.assertTrue(manager.contains(categoryList.get(0)[0]));
+
+        System.out.println("categoryList.get(0)[0] : " + categoryList.get(0)[0]);
+        System.out.println("categoryList.get(0)[1] : " + categoryList.get(0)[1]);
+
+        System.out.println("categoryList.get(0)[0] : " + categoryList.get(0)[0].getClass());
+        System.out.println("categoryList.get(0)[0] : " + categoryList.get(0)[1].getClass());
+
+        categoryList.forEach(
+                row -> {
+                    for(Object col : row) {
+                        System.out.print(col + " / ");
+                    }
+                    System.out.println();
+                }
+        );
+
+    }
+
 
 }
