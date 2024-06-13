@@ -1,6 +1,5 @@
 package com.ohgiraffers.springdatajpa.menu.model.dto;
 
-
 public class MenuDTO {
 
     private int menuCode;
@@ -69,5 +68,4 @@ public class MenuDTO {
                 ", orderableStatus='" + orderableStatus + '\'' +
                 '}';
     }
-
 }

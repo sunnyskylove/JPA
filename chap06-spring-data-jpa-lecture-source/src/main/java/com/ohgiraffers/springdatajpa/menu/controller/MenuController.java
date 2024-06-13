@@ -3,18 +3,20 @@ package com.ohgiraffers.springdatajpa.menu.controller;
 import com.ohgiraffers.springdatajpa.common.Pagenation;
 import com.ohgiraffers.springdatajpa.common.PagingButton;
 import com.ohgiraffers.springdatajpa.menu.model.dto.CategoryDTO;
+import com.ohgiraffers.springdatajpa.menu.model.dto.MenuDTO;
+import com.ohgiraffers.springdatajpa.menu.model.service.MenuService;
+
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.ui.Model;
-import com.ohgiraffers.springdatajpa.menu.model.dto.MenuDTO;
-import com.ohgiraffers.springdatajpa.menu.model.service.MenuService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @Slf4j
 @Controller
 @RequestMapping("/menu")
@@ -26,7 +28,6 @@ public class MenuController {
     public MenuController(MenuService service) {
         this.service = service;
     }
-
 
     @GetMapping("/{menuCode}")
     public String findMenuByCode(@PathVariable int menuCode, Model model) {
@@ -47,16 +48,17 @@ public class MenuController {
 //        model.addAttribute("menuList", menuList);
 
         /* paging 버전 */
-        log.info("pageable : {}", pageable);
+        log.info("pageable : {}", pageable);            // sout 처럼~~
+
         Page<MenuDTO> menuList = service.findMenuList(pageable);
 
-        log.info("조회한 내용 목록 : {}" , menuList.getContent());         // sout 처럼~~
+        log.info("조회한 내용 목록 : {}", menuList.getContent());
         log.info("총 페이지 수 : {}", menuList.getTotalPages());
         log.info("총 메뉴의 수 : {}", menuList.getTotalElements());
-        log.info("해당페이지에 표시 될 요소의 수 : {}", menuList.getSize());
-        log.info("해당 페이지의 실제 요소 개수 : {}", menuList.getNumberOfElements());
+        log.info("해당 페이지에 표시 될 요소의 수 : {}", menuList.getSize());
+        log.info("해당 페이지의 실제 요소 갯수 : {}", menuList.getNumberOfElements());
         log.info("첫 페이지 여부 : {}", menuList.isFirst());
-        log.info("마지막페이지 여부 : {}", menuList.isLast());
+        log.info("마지막 페이지 여부 : {}", menuList.isLast());
         log.info("정렬 방식 : {}", menuList.getSort());
         log.info("여러 페이지 중 현재 인덱스 : {}", menuList.getNumber());
 
@@ -66,6 +68,7 @@ public class MenuController {
         model.addAttribute("paging", paging);
 
         return "menu/list";
+
     }
 
     @GetMapping("/querymethod")
@@ -80,13 +83,13 @@ public class MenuController {
         model.addAttribute("menuPrice", menuPrice);
 
         return "menu/searchResult";
-    }
 
+    }
 
     @GetMapping("/regist")
     public void registPage() {}
 
-    @GetMapping(value= "/category", produces = "application/json; charset-UTF-8")
+    @GetMapping(value = "/category", produces = "application/json; charset=UTF-8")
     @ResponseBody
     public List<CategoryDTO> findCategoryList() {
         return service.findAllCategory();
@@ -98,8 +101,6 @@ public class MenuController {
         service.registNewMenu(menuDTO);
 
         return "redirect:/menu/list";
-
     }
-
 
 }

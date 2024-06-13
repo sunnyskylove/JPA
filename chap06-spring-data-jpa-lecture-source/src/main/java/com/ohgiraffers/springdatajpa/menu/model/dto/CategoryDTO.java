@@ -1,6 +1,5 @@
 package com.ohgiraffers.springdatajpa.menu.model.dto;
 
-
 public class CategoryDTO {
 
     private int categoryCode;
@@ -47,5 +46,4 @@ public class CategoryDTO {
                 ", refCategoryCode=" + refCategoryCode +
                 '}';
     }
-
 }
