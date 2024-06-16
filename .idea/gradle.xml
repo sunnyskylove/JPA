@@ -4,6 +4,7 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="testRunner" value="PLATFORM" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/chap00-intro-lecture-source" />
         <option name="gradleJvm" value="17" />
         <option name="modules">
@@ -13,6 +14,7 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="testRunner" value="PLATFORM" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/chap01-persistence-context-lecture-source" />
         <option name="gradleJvm" value="17" />
         <option name="modules">
